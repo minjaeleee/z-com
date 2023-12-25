@@ -1,10 +1,7 @@
-import styles from "../page.module.css"
+import {ReactNode} from "react";
+import styles from '../page.module.css';
 
-type Props = {
-  children: React.ReactNode,
-  modal: React.ReactNode
-}
-
+type Props = { children: ReactNode, modal: ReactNode };
 export default function Layout({ children, modal }: Props) {
   return (
     <div className={styles.container}>
@@ -12,5 +9,4 @@ export default function Layout({ children, modal }: Props) {
       {modal}
     </div>
   )
-  
 }
