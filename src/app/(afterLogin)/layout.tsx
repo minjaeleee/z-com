@@ -5,6 +5,7 @@ import ZLogo from '../../../public/zlogo.png';
 import RightSearchZone from './_component/RightSearchZone';
 import NavMenu from './_component/NavMenu';
 import LogoutButton from './_component/LogoutButton';
+import TrendSection from './_component/TrendSection';
 
 type Props = {
   children: React.ReactNode,
@@ -45,11 +46,11 @@ export default function AfterLoginLayout({children} : Props) {
           <main className={styles.main}>{children}</main>
             <section className={styles.rightSection}>
               <RightSearchZone/>
-              {/* <TrendSection/>
+              <TrendSection/>
               <div className={styles.followRecommend}>
                 <h3>팔로우 추천</h3>
-                <FollowRecommendSection/>
-              </div> */}
+                {/* <FollowRecommendSection/> */}
+              </div>
             </section>
           </div>
         </div>
