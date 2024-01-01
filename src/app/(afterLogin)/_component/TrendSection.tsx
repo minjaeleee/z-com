@@ -5,7 +5,6 @@ import {usePathname} from "next/navigation";
 
 export default function TrendSection() {
   // const { data: session } = useSession();
-
   const pathname = usePathname();
   if (pathname === '/explore') return null;
     <div className={styles.trendBg}>
