@@ -1,26 +1,12 @@
-"use client";
-
 import Link from "next/link";
-import style from './trend.module.css';
-import {useSearchParams} from "next/navigation";
+import styles from './trend.module.css';
 
-interface IHashtag {
-  tagId: number,
-  title: string,
-  count: number
-}
-
-type Prop = { trend: IHashtag };
-export default function Trend({ trend }: Prop) {
-  const searchParams = useSearchParams();
-  const newSearchParams = new URLSearchParams(searchParams);
-  newSearchParams.set('q', trend.title);
-
+export default function Trend() {
   return (
-    <Link href={`/search?${newSearchParams.toString()}`} className={style.container}>
-      <div className={style.count}>실시간트렌드</div>
-      <div className={style.title}>{trend.title}</div>
-      <div className={style.count}>{trend.count.toLocaleString()} posts</div>
+    <Link href={`/search?q=트렌드`} className={styles.container}>
+      <div className={styles.count}>실시간트렌드</div>
+      <div className={styles.title}>제로초</div>
+      <div className={styles.count}>1,234 posts</div>
     </Link>
   )
 }
