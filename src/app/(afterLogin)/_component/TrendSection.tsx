@@ -1,10 +1,11 @@
 "use client";
 
-import styles from './trendSection.module.css';
+import { useSession } from 'next-auth/react';
 import {usePathname} from "next/navigation";
+import styles from './trendSection.module.css';
 
 export default function TrendSection() {
-  // const { data: session } = useSession();
+  const { data: session } = useSession();
   const pathname = usePathname();
   if (pathname === '/explore') return null;
     <div className={styles.trendBg}>
