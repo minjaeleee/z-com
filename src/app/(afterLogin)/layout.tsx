@@ -7,6 +7,7 @@ import NavMenu from './_component/NavMenu';
 import LogoutButton from './_component/LogoutButton';
 import TrendSection from './_component/TrendSection';
 import { auth } from '@/auth';
+import RQProvider from './_component/RQProvider';
 
 type Props = {
   children: React.ReactNode,
@@ -18,6 +19,7 @@ export default async function AfterLoginLayout({children, modal} : Props) {
 
   return (
       <div className={styles.container}>
+        <RQProvider>
         <header className={styles.leftSectionWrapper}>
           <section className={styles.leftSection}>
             <div className={styles.leftSectionFixed}>
@@ -63,6 +65,7 @@ export default async function AfterLoginLayout({children, modal} : Props) {
           </div>
         </div>
         {modal}
+        </RQProvider>
       </div>
   )
 }
