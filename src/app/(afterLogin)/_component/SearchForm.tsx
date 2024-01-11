@@ -5,6 +5,7 @@ import {useRouter, useSearchParams} from "next/navigation";
 import {FormEventHandler} from "react";
 
 type Props = { q?: string }
+
 export default function SearchForm({ q }: Props) {
   const router = useRouter();
   const searchParams = useSearchParams();
