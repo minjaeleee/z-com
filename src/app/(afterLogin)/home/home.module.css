@@ -1,4 +1,5 @@
 .main {
+  width: 600px;
   border-color: rgb(239, 243, 244);
   border-right-width: 1px;
   border-left-width: 1px;
@@ -7,15 +8,16 @@
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  min-height: 100dvh;
 }
-@media all and (min-width: 687px) {
-  .main {
-      width: 600px;
+
+@keyframes rotating {
+  from{
+      transform: rotate(0deg);
+  }
+  to{
+      transform: rotate(360deg);
   }
 }
-@media (prefers-color-scheme: dark) {
-  .main {
-      border-color: rgb(47, 51, 54);
-  }
+.loader {
+  animation: rotating 2s linear infinite;
 }

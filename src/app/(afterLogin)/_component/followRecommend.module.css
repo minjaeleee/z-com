@@ -39,8 +39,8 @@
   border: none;
   cursor: pointer;
   width: 100%;
-  color: rgb(var(--background-end-rgb));
-  background: rgb(var(--foreground-rgb));
+  color: white;
+  background: #000;
   font-size: 14px;
   font-weight: bold;
   height: 32px;
