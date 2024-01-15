@@ -1,4 +1,4 @@
-import {http, HttpResponse, StrictResponse} from 'msw'
+import {delay, http, HttpResponse, StrictResponse} from 'msw'
 import {faker} from "@faker-js/faker";
 
 function generateDate() {
@@ -44,7 +44,8 @@ export const handlers = [
       }
     })
   }),
-  http.get('/api/postRecommends', ({ request }) => {
+  http.get('/api/postRecommends', async ({ request }) => {
+    await delay(3000);
     const url = new URL(request.url)
     const cursor = parseInt(url.searchParams.get('cursor') as string) || 0
     return HttpResponse.json(
@@ -99,7 +100,8 @@ export const handlers = [
       ]
     )
   }),
-  http.get('/api/followingPosts', ({ request }) => {
+  http.get('/api/followingPosts', async ({ request }) => {
+    await delay(3000);
     return HttpResponse.json(
       [
         {
