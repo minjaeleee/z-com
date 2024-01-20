@@ -1,50 +1,40 @@
 "use client"
 
-import {ChangeEventHandler, FormEvent, FormEventHandler, useRef, useState} from "react";
-import { Session } from "next-auth";
+import {ChangeEventHandler, FormEventHandler, useRef, useState} from "react";
 import style from './postForm.module.css';
+import {useSession} from "next-auth/react";
 
-type Props = {
-  me: Session | null
-}
-
-export default function PostForm({ me } : Props) {
+export default function PostForm() {
   const imageRef = useRef<HTMLInputElement>(null);
-  // const [preview, setPreview] = useState<Array<{ dataUrl: string, file: File } | null>>([]);
   const [content, setContent] = useState('');
+  const { data: me } = useSession();
+
 
   const onChange: ChangeEventHandler<HTMLTextAreaElement> = (e) => {
     setContent(e.target.value);
+  }
+
+  const onSubmit: FormEventHandler = (e) => {
+    e.preventDefault();
   }
 
   const onClickButton = () => {
     imageRef.current?.click();
   }
 
-  const onRemoveImage = (index: number) => () => {};
-
-  const onUpload: ChangeEventHandler<HTMLInputElement> = (e) => {};
-
   return (
-    <form className={style.postForm}>
+    <form className={style.postForm} onSubmit={onSubmit}>
       <div className={style.postUserSection}>
         <div className={style.postUserImage}>
-          {/* <img src={me?.user?.image as string} alt={me?.user?.email as string} /> */}
+          <img src={me?.user?.image as string} alt={me?.user?.email as string} />
         </div>
       </div>
       <div className={style.postInputSection}>
-        {/* <TextareaAutosize value={content} onChange={onChange} placeholder="무슨 일이 일어나고 있나요?"/> */}
-        <div style={{ display: 'flex' }}>
-          {/* {preview.map((v, index) => (
-            v && (<div key={index} style={{ flex: 1 }} onClick={onRemoveImage(index)}>
-              <img src={v.dataUrl} alt="미리보기" style={{ width: '100%', objectFit: 'contain', maxHeight: 100 }} />
-            </div>)
-          ))} */}
-        </div>
+        <textarea value={content} onChange={onChange} placeholder="무슨 일이 일어나고 있나요?"/>
         <div className={style.postButtonSection}>
           <div className={style.footerButtons}>
             <div className={style.footerButtonLeft}>
-              <input type="file" name="imageFiles" multiple hidden ref={imageRef} onChange={onUpload} />
+              <input type="file" name="imageFiles" multiple hidden ref={imageRef} />
               <button className={style.uploadButton} type="button" onClick={onClickButton}>
                 <svg width={24} viewBox="0 0 24 24" aria-hidden="true">
                   <g>
