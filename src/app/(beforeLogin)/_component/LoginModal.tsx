@@ -16,10 +16,10 @@ export default function LoginModal() {
     setMessage('');
     try {
       const response = await signIn("credentials", {
-        username: id,
-        password,
-        redirect: false,
-      })
+          username: id,
+          password,
+          redirect: false,
+        })
       if (!response?.ok) {
         setMessage('아이디와 비밀번호가 일치하지 않습니다.');
       } else {

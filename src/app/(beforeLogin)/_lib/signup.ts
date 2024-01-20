@@ -3,6 +3,7 @@
 import {redirect} from "next/navigation";
 import {signIn} from "@/auth";
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default async (prevState: any, formData: FormData) => {
   if (!formData.get('id') || !(formData.get('id') as string)?.trim()) {
     return { message: 'no_id' };
@@ -37,11 +38,10 @@ export default async (prevState: any, formData: FormData) => {
     })
   } catch (err) {
     console.error(err);
-    return { message: null };
+    return;
   }
 
   if (shouldRedirect) {
     redirect('/home'); // try/catch문 안에서 X
   }
-  return { message: null };
 }

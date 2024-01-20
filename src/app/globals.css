@@ -86,8 +86,7 @@ body {
 }
 
 body {
-  /* color: rgb(var(--foreground-rgb)); */
-  color: black;
+  color: rgb(var(--foreground-rgb));
 }
 
 a {

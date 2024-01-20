@@ -1,9 +1,14 @@
 "use client"
 
 import {ChangeEventHandler, FormEvent, FormEventHandler, useRef, useState} from "react";
+import { Session } from "next-auth";
 import style from './postForm.module.css';
 
-export default function PostForm() {
+type Props = {
+  me: Session | null
+}
+
+export default function PostForm({ me } : Props) {
   const imageRef = useRef<HTMLInputElement>(null);
   // const [preview, setPreview] = useState<Array<{ dataUrl: string, file: File } | null>>([]);
   const [content, setContent] = useState('');
