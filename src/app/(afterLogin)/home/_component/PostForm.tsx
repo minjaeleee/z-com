@@ -1,16 +1,23 @@
 "use client"
 
 import {ChangeEventHandler, FormEventHandler, useRef, useState} from "react";
-import style from './postForm.module.css';
+import { Session } from "next-auth";
 import {useSession} from "next-auth/react";
 import ReactTextareaAutosize from "react-textarea-autosize";
+import { useQueryClient } from "@tanstack/react-query";
 
-export default function PostForm() {
+import style from './postForm.module.css';
+import { Post } from "@/model/Post";
+
+type Props = {
+  me: Session | null
+}
+
+export default function PostForm({me}: Props) {
   const imageRef = useRef<HTMLInputElement>(null);
   const [preview, setPreview] = useState<Array<{dataUrl: string, file: File} | null>>([])
   const [content, setContent] = useState('');
-  const { data: me } = useSession();
-
+  const queryClient = useQueryClient();
 
   const onChange: ChangeEventHandler<HTMLTextAreaElement> = (e) => {
     setContent(e.target.value);
@@ -23,11 +30,39 @@ export default function PostForm() {
     preview.forEach((p)=> {
       p && formData.append('imaegs', p.file)
     })
-    await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/posts`, {
-      method: 'post',
-      credentials: 'include',
-      body: formData
-    })
+    try {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/posts`, {
+        method: 'post',
+        credentials: 'include',
+        body: formData
+      })
+  
+      if(response.status === 201) {
+        setContent('')
+        setPreview([])
+        const newPost = await response.json()
+        queryClient.setQueryData(['posts', 'recommends'], (prevData: { pages: Post[][] }) => {
+          const shallow = {
+            ...prevData,
+            pages: [...prevData.pages],
+          };
+          shallow.pages[0] = [...shallow.pages[0]];
+          shallow.pages[0].unshift(newPost);
+          return shallow;
+        })
+        queryClient.setQueryData(['posts', 'followings'], (prevData: { pages: Post[][] }) => {
+          const shallow = {
+            ...prevData,
+            pages: [...prevData.pages],
+          };
+          shallow.pages[0] = [...shallow.pages[0]];
+          shallow.pages[0].unshift(newPost);
+          return shallow;
+        })
+      }
+    } catch(err) {
+      alert('업로드 중 에러 발생')
+    }
   }
 
   const onClickButton = () => {
