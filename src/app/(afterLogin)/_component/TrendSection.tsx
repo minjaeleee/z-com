@@ -17,7 +17,7 @@ export default function TrendSection() {
     gcTime: 300 * 1000,
     enabled: !!session?.user
   })
-
+  console.log("trends", data)
   const pathname = usePathname();
   if (pathname === '/explore') return null;
   if (session?.user) {
