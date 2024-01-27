@@ -29,7 +29,7 @@ export default function PostRecommends() {
     }
   },[inView, hasNextPage, fetchNextPage, isFetching])
 
-  return data?.pages.map((page, i) => (
+  return (
     <>
       {
         data?.pages.map((page,i) => (
@@ -42,5 +42,5 @@ export default function PostRecommends() {
       }
       <div ref={ref} style={{ height: 50 }} />
     </>
-  ))
+  )
 }
