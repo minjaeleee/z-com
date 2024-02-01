@@ -28,7 +28,6 @@ export const {
 
         // 백엔드 쿠키를 브라우저에 심는 부분
         let setCookie = authResponse.headers.get('Set-Cookie');
-        console.log("setCookie",setCookie)
         if (setCookie) {
           const parsed = cookie.parse(setCookie)
           cookies().set('connect.sid', parsed['connect.sid'], parsed)
@@ -39,7 +38,7 @@ export const {
         }
 
         const user = await authResponse.json()
-        console.log('user', user);
+
         return {
           email: user.id,
           name: user.nickname,
